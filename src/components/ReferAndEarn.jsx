@@ -7,6 +7,8 @@ import ReferrerDetails from "./ReferralForm/ReferrerDetails";
 import RefereeDetails from "./ReferralForm/RefereeDetails";
 import CourseSelection from "./ReferralForm/CourseSelection";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const ReferAndEarn = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -65,16 +67,13 @@ const ReferAndEarn = () => {
       };
 
       try {
-        const response = await fetch(
-          "https://accredian-backend-task-nihar.onrender.com/api/referrals",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(apiData),
-          }
-        );
+        const response = await fetch(`${apiUrl}/api/referrals`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(apiData),
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
